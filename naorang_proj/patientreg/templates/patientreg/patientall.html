@@ -1,0 +1,74 @@
+{% extends "appointment/base.html" %}
+
+{% block content %}
+<div class="col-md-8">
+    <h1 class="mb-3">Posts By  </h1>
+    {% for post in posts %}
+      <div class="card-body">
+        <article class="media content-section">
+            <div class="media-body">
+              <div class="media">
+                  <img class="rounded-circle account-img" src="{{ post.image.url }}">
+              </div>
+              <div class="article-metadata">
+                {%if user.is_dr%}
+                <h5>posted by<a class="mr-2" href="{%url 'patientreg-detail' post.patient_id%}"> <b> {{post.pname}}</b></a></h5>
+                {%else%}
+                <h5>posted by<a class="mr-2" > <b> {{post.pname}}</b></a></h5>
+                {%endif%}
+                <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+                <h3>Patient Name<a class="mr-2" href=""> <b>B</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.sex}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.address}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.email}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.contact_no}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.foreigner_NRI}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.passport_no}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.country}}</b></a></h3>
+                <h3>Patient Name<a class="mr-2" href=""> <b>{{post.passport_of_country}}</b></a></h3>
+                <h2>Patient Name<a class="mr-2" href=""> <b>{{post.get_patient_id}}</b></a></h2>
+                <small class="text-muted">on {{ post.age }} Years old </small>
+
+                <div>
+                  <small class="text-muted">from {{ post.addult_child }} to {{ post.p_h_g_name }}</small>
+
+                </div> <!--date_posted??-->
+                {% if user.is_dr or user.is_rec %}
+                  <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'patientreg-update' post.patient_id %}">Update</a>
+
+                  </div>
+                {% endif %}
+              </div>
+              <h2 class="article-title"></h2>
+              <h3>{{ object.contact_no }}</h3>
+              <p class="article-content"></p>
+              <h2>Dr.</h2>
+            </div>
+          </article>
+
+    {% endfor %}
+
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    {% endif %}
+
+</div>
+{% endblock content %}

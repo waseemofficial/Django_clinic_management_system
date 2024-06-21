@@ -1,0 +1,343 @@
+{% extends "appointment/base.html" %}
+{%load static%}
+
+{%block javascript%}
+    <script src="{%static 'patientdata/js/patientdatacreate.js'%}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+
+{%endblock javascript%}
+{% block content %}
+<div class="col-md-8">
+
+  <div class="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Dropdown button
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Link 1</a>
+      <a class="dropdown-item" href="#">Link 2</a>
+      <a class="dropdown-item" href="#">Link 3</a>
+    </div>
+  </div>
+<!--Patient History-->
+
+    <h3 class="mb-3">Patient History  </h3>
+      <div class="card-body" id="patienthistory-table">
+        <article class="media content-section">
+          <div class="media-body">
+
+              <div class="article-metadata">
+                <h4>presenting complaints<a class="mr-2" href="#"> <b> {{object.patienthistory.presenting_complaints}}</b></a></h4>
+                <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+                <h3>history of presenting complaints<a class="mr-2" href=""> <b>{{object.patienthistory.history_of_presenting_complaints}}</b></a></h3>
+                <h4>department<a class="mr-2" > <b>{{object.patienthistory.department}}</b></a></h4>
+                <h4>past historys<a class="mr-2" href=""> <b>{{object.patienthistory.past_historys}}</b></a></h4>
+                <h4>past history note<a class="mr-2" href=""> <b>{{object.patienthistory.past_history_note}}</b></a></h4>
+                <h4>drug history<a class="mr-2" href=""> <b>{{object.patienthistory.drug_history}}</b></a></h4>
+                <h4>drug history note<a class="mr-2" href=""> <b>{{object.patienthistory.drug_history_note}}</b></a></h4>
+                <h4>drug allergies<a class="mr-2" href=""> <b>{{object.patienthistory.drug_allergies}}</b></a></h4>
+                <h4>treatment history<a class="mr-2" href=""> <b>{{object.patienthistory.treatment_history}}</b></a></h4>
+                <h4>treatment history note<a class="mr-2" href=""> <b>{{object.patienthistory.treatment_history_note}}</b></a></h4>
+                <h4>surgeries<a class="mr-2" href=""> <b>{{ object.patienthistory.surgeries }}</b></a></h4>
+                <h4>personal history sleep<a class="mr-2" href=""> <b>{{ object.patienthistory.personal_history_sleep }}</b></a></h4>
+                <h4>personal history appetite<a class="mr-2" href=""> <b>{{ object.patienthistory.personal_history_appetite }}</b></a></h4>
+
+                <h4 class="article-title"></h4>
+                <h4>personal history diet <a class="mr-2" href="">{{ object.patienthistory.personal_history_diet }}</a></h4>
+                <h4>personal history bowel bladder habits <a class="mr-2" href="" >{{ object.patienthistory.personal_history_bowel_bladder_habits }}</a></h4>
+                <h4>addictions <a class="mr-2" href="" >{{ object.patienthistory.addictions }}</a></h4>
+                <h4>occupational history <a class="mr-2" href="">{{ object.patienthistory.occupational_history }}</a></h4>
+                <h4>family history <a class="mr-2" href="">{{ object.patienthistory.family_history }}</a></h4>
+              </div>
+
+
+              {% if user.is_dr %}
+                  <div>
+                    <button type="button" class="btn btn-warning btn-sm js-update-patienthistory" data-url="{% url 'patienthistory_update' object.pk  %}" ><span class="glyphicon glyphicon-pencil"></span> Eedit</button> <!-- 'patienthistory-detail' object.id,   url 'patientdata_update' object.patienthistory.id-->
+
+                  </div>
+              {% endif %}
+
+              <div class="modal fade" id="modal-patienthistory" >
+                <div class="modal-dialog" >
+                  <div class="modal-content">
+                  </div>
+                </div>
+              </div>
+
+
+          </div>
+        </article>
+      </div>
+
+
+
+
+<!--Patient Vitals-->
+          <div class="container-fluid" id="patientvitals-table">
+            {% if user.is_dr %}
+            <div>
+            <button type="button" class="btn btn-secondary btn-sm mt-1 mb-1 js-create-patientvitals" data-url="{%url 'patientvitals_create' object.pk %}" >+<span class="glyphicon glyphicon-puls" ></span></button>
+            </div>
+            {% endif %}
+            <div class="row flex-row flex-nowrap"  >
+
+
+            {% include 'patientdata/partial_patientvitals_detail.html' %}
+
+
+            </div>
+            <div class="modal fade" id="modal-patientvitals" >
+              <div class="modal-dialog" >
+                  <div class="modal-content">
+                  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+<!--Patient SYSTEMIC EXAMINATION-->
+
+      <div class="container-fluid" id="patientsystemic-table">
+        {% if user.is_dr %}
+                    <div>
+                      <a class="btn btn-secondary btn-sm mt-1 mb-1 js-create-patientsystemic" data-url="{%url 'patientsystemic_create' object.pk %}" >+</a>
+                    </div>
+        {% endif %}
+
+          <div class="row flex-row flex-nowrap" >
+                  {% include 'patientdata/partial_patientsystemic_detail.html' %}
+                    </div>
+
+
+          <div class="modal fade" id="modal-patientsystemic" >
+              <div class="modal-dialog" >
+                  <div class="modal-content">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<!--Patient Obstetric-->
+
+            <h3 class="mb-3">patient OBSTETRIC </h3>
+            <div class="card-body" id="patientobstetric-table">
+              <article class="media content-section">
+                  <div class="media-body">
+
+                    <div class="article-metadata">
+                      <h5>posted by<a class="mr-2" href="#"> <b> {{object.patientobstetric.g}}</b></a></h5>
+                      <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+                      <h4>Patient Name<a class="mr-2" href=""> <b>B</b></a></h4>
+                      <h4>history of presenting complaints<a class="mr-2" href=""> <b>{{object.patientobstetric.history_of_presenting_complaints}}</b></a></h4>
+                      <h4>patientobstetric P<a class="mr-2" href=""> <b>{{object.patientobstetric.P}}</b></a></h4>
+                      <h4>patientobstetric L<a class="mr-2" href=""> <b>{{object.patientobstetric.L}}</b></a></h4>
+                      <h4>patientobstetric A<a class="mr-2" href=""> <b>{{object.patientobstetric.A}}</b></a></h4>
+                      <h4>patientobstetric D<a class="mr-2" href=""> <b>{{object.patientobstetric.D}}</b></a></h4>
+                      <h4>age and sex child<a class="mr-2" href=""> <b>{{object.patientobstetric.age_and_sex_child}}</b></a></h4>
+                      <h4>method of delivery<a class="mr-2" href=""> <b>{{object.patientobstetric.method_of_delivery}}</b></a></h4>
+                      <h4>nvd<a class="mr-2" href=""> <b>{{object.patientobstetric.nvd}}</b></a></h4>
+                      <h4>lscs<a class="mr-2" href=""> <b>{{object.patientobstetric.lscs}}</b></a></h4>
+                      <h4>immunization of children<a class="mr-2" href=""> <b>{{ object.patientobstetric.immunization_of_children }}</b></a></h4>
+
+                      <div>
+                      </div> <!--date_posted??-->
+                      {% if user.is_dr %}
+                        <div>
+                          <a class="btn btn-secondary btn-sm mt-1 mb-1 js-update-patientobstetric" data-url="{% url 'patientobstetric_update' object.pk  %}">Update</a>
+
+                        </div>
+                      {% endif %}
+                    </div>
+
+                  </div>
+                </article>
+                  <div class="modal fade" id="modal-patientobstetric" >
+                    <div class="modal-dialog" >
+                      <div class="modal-content">
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+
+
+<!--Patient General-->
+
+                <h3 class="mb-3">Patient General </h3>
+                <div class="card-body" id="patientgeneral-table">
+                  <article class="media content-section">
+                      <div class="media-body">
+
+                        <div class="article-metadata">
+                          <h5>posted by<a class="mr-2" href="#"> <b> {{object.patientgeneral.built_and_nourishment}}</b></a></h5>
+                          <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+
+                          <h4>pallor<a class="mr-2" href=""> <b>{{object.patientgeneral.pallor}}</b></a></h4>
+                          <h4>edema<a class="mr-2" href=""> <b>{{object.patientgeneral.edema}}</b></a></h4>
+                          <h4>cyanosis<a class="mr-2" href=""> <b>{{object.patientgeneral.cyanosis}}</b></a></h4>
+                          <h4>clubbing<a class="mr-2" href=""> <b>{{object.patientgeneral.clubbing}}</b></a></h4>
+                          <h4>icterus<a class="mr-2" href=""> <b>{{object.patientgeneral.icterus}}</b></a></h4>
+                          <h4>lymphadenopathy<a class="mr-2" href=""> <b>{{object.patientgeneral.lymphadenopathy}}</b></a></h4>
+                          <div>
+
+                          </div> <!--date_posted??-->
+                          {% if  user.is_dr %}
+                            <div>
+                              <a class="btn btn-secondary btn-sm mt-1 mb-1 js-update-patientgeneral" data-url="{% url 'patientgeneral_update' object.pk  %}">Update</a>
+
+                            </div>
+                          {% endif %}
+                        </div>
+
+                      </div>
+                    </article>
+                    <div class="modal fade" id="modal-patientgeneral" >
+                      <div class="modal-dialog" >
+                        <div class="modal-content">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+<!--Patient INVESTIGATIONS-->
+
+                    <h3 class="mb-3">Patient INVESTIGATIONS  </h3>
+                    <div class="card-body"  id="patientinvestigations-table">
+                      <article class="media content-section">
+                          <div class="media-body">
+
+                            <div class="article-metadata">
+                              <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+
+                              <h4>investigations<a class="mr-2" href=""> <b>{{object.patientinvestigations.investigations}}</b></a></h4>
+                              {%  if user.is_dr %}
+                                <div>
+                                  <a class="btn btn-secondary btn-sm mt-1 mb-1 js-update-patientinvestigations" data-url="{% url 'patientinvestigations_update' object.pk  %}">Update</a>
+
+                                </div>
+                              {% endif %}
+                            </div>
+
+                          </div>
+                        </article>
+                        <div class="modal fade" id="modal-patientinvestigations" >
+                          <div class="modal-dialog" >
+                            <div class="modal-content">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+<!--Patient PROVISIONAL DIAGNOSIS-->
+
+                <h3 class="mb-3">Patient PROVISIONAL DIAGNOSIS </h3>
+                <div class="card-body" id="patientprovisional-table">
+                  <article class="media content-section">
+                      <div class="media-body">
+
+                        <div class="article-metadata">
+                          <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+                          <h4>Patient PROVISIONAL DIAGNOSIS<a class="mr-2" href=""> <b>{{object.patientprovisional.previsional_diagnosis}}</b></a></h4>
+                          <div>
+
+                          </div> <!--date_posted??-->
+                          {% if  user.is_dr %}
+                            <div>
+                              <a class="btn btn-secondary btn-sm mt-1 mb-1 js-update-patientprovisional" data-url="{% url 'patientprovisional_update' object.pk  %}">Update</a>
+
+                            </div>
+                          {% endif %}
+                        </div>
+
+                      </div>
+                    </article>
+                    <div class="modal fade" id="modal-patientprovisional" >
+                      <div class="modal-dialog" >
+                        <div class="modal-content">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+<!--Patient FINAL DIAGNOSIS-->
+
+                <h3 class="mb-3">Patient FINAL DIAGNOSIS </h3>
+                <div class="card-body" id="patientdiagnosis-table">
+                  <article class="media content-section">
+                      <div class="media-body">
+
+                        <div class="article-metadata">
+                          <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+                          <h4>Patient FINAL DIAGNOSIS<a class="mr-2" href=""> <b>{{object.patientdiagnosis.filal_Diagnosis}}</b></a></h4>
+                          <div>
+
+                          </div> <!--date_posted??-->
+                          {% if  user.is_dr %}
+                            <div>
+                              <a class="btn btn-secondary btn-sm mt-1 mb-1 js-update-patientdiagnosis" data-url="{% url 'patientdiagnosis_update' object.pk  %}">Update</a>
+
+                            </div>
+                          {% endif %}
+                        </div>
+
+                      </div>
+                    </article>
+                    <div class="modal fade" id="modal-patientdiagnosis" >
+                      <div class="modal-dialog" >
+                          <div class="modal-content">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+<!--Patient ADVICE-->
+
+                <h3 class="mb-3">Patient ADVICE </h3>
+                <div class="container-fluid" id="patientadvice-table">
+                {% if user.is_dr %}
+                    <div>
+                    <button type="button" class="btn btn-secondary btn-sm mt-1 mb-1 js-create-patientadvice" data-url="{%url 'patientadvice_create' object.pk %}" >+<span class="glyphicon glyphicon-puls" ></span></button>
+                    </div>
+                  {% endif %}
+                <div class="row flex-row flex-nowrap" id="patientadvice-table">
+
+
+                    {% include 'patientdata/partial_patientadvice_detail.html' %}
+
+                      </div>
+
+                    <div class="modal fade" id="modal-patientadvice" >
+                      <div class="modal-dialog" >
+                          <div class="modal-content">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+<!--Patient Appointment-->
+          <div class="container-fluid" id="patientappointment-table">
+          {% if user.is_dr %}
+            <div>
+            <button type="button" class="btn btn-secondary btn-sm mt-1 mb-1 " >+<span class="glyphicon glyphicon-puls" ></span></button>
+            </div>
+          {% endif %}
+          <div class="row flex-row flex-nowrap"  >
+          {% include 'patientdata/partial_patientappointment_all.html' %}
+        </div>
+        </div>
+
+
+
+
+
+
+{% endblock content %}

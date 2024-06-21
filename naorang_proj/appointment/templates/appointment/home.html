@@ -1,0 +1,13 @@
+{% extends "appointment/base.html" %}
+{%load static%}
+
+{%block javascript%}
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js" ></script>
+    <script src="{%static 'appointment/js/homeclock.js'%}"></script>
+{%endblock javascript%}
+
+
+{% block content %}
+
+ <div class="mr-2" id="clock" >8:26PM</div>
+{% endblock content %}

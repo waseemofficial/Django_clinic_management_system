@@ -1,0 +1,31 @@
+{% extends "appointment/base.html" %}
+{%load static%}
+
+{% load crispy_forms_tags %}
+{%block javascript%}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="{%static 'appointment/js/datepicker.js'%}"></script>
+{%endblock javascript%}
+{% block content %}
+<div class="col-md-9">
+    <div class="content-section">
+        <form method="POST" class="form-group pmd-textfield pmd-textfield-floating-label col">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Appointment Post</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Appointment</button>
+            </div>
+        </form>
+    </div>
+</div>
+<style type="text/css">
+    <link src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"></link>
+</style>
+{% endblock content %}
+
+
+

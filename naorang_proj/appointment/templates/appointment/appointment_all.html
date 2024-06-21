@@ -1,0 +1,74 @@
+{% extends "appointment/base.html" %}
+
+{% block content %}
+<div class="col-md-6">
+  <div class="appointment" id="appointment">
+    <h1 class="mb-3">Posts By  </h1>
+    {% for post in posts %}
+      <div class="card-body">
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5>posted by<a class="mr-2" href="{% url 'appointment-all' object.staff.username %}"> <b> {{object.staff}}</b></a></h5>
+              <meta name="keyword" content="{{object.title|capfirst}} "> <!-- try exp -->
+
+              <h3>Patient Name<a class="mr-2" href=""> <b>{{object.appointment_for}}</b></a></h3>
+              <small class="text-muted">on {{ object.date_posdted }}</small>
+              <div>
+                <small class="text-muted">from {{ object.start }} to {{ object.start }}</small>
+
+              </div> <!--date_posted??-->
+              {% if object.staff == user %}
+                <div>
+                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'appointment-update' object.id %}">Update</a>
+                  <a class="btn btn-secondary btn-sm mb-1 mb-2" href="">reshadule</a>
+                  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'appointment-delete' object.id %}">Delete</a>
+                  <small class="text-muted">status:
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Profile Info</legend>
+                            {{ s_form|crispy }}
+
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit">Update</button>
+                        </div>
+                    </form>
+                  </small>
+                </div>
+              {% endif %}
+              </div>
+              <h2 class="article-title">{{ object.title|capfirst }}</h2>
+              <h3>{{ object.contact_no }}</h3>
+              <p class="article-content">{{ object.content|capfirst|linebreaks }}</p>
+              <h2>Dr.{{ object.dr_name|capfirst }}</h2>
+            </div>
+          </article>
+      </div>
+    {% endfor %}
+  </div>
+
+      <!--paginater code for class-->
+
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    {% endif %}
+</div>
+{% endblock content %}

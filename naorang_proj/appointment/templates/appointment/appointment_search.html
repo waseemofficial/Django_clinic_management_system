@@ -1,0 +1,47 @@
+{% extends "appointment/base.html" %}
+{% block content %}
+    {% for appointments in appointment %}
+      <div class="card-body" >
+        <article class="media content-section">
+          <img class="rounded-circle article-img " src="{{ post.auther.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">posted by<meta name="keyword" content=" {{post.tag}}"> <!-- try exp -->
+              <a class="mr-2" href="#"> <b>{{ post.auther }}</b></a>
+
+              <small class="text-muted">on {{ post.date_posdted }}</small> <!--date_posted??-->
+            </div>
+            <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title|truncatechars:30 }}</a></h2>
+            <p class="article-content">{{ post.content|linebreaks|truncatechars:320 }}</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+        <div class="container-fluid">
+         <h3>No Posts Found with search "{{ request.GET.q }}"</h3>
+        </div>
+
+    {% endfor %}
+    <!--paginater code for def-->
+
+      {% if posts.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1{%if request.GET.q %}&q={{request.GET.q}}{%endif%}">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ posts.previous_page_number }}{%if request.GET.q %}&q={{request.GET.q}}{%endif%}"><</a>
+      {% endif %}
+
+      {% for p in posts.paginator.page_range %}
+        {% if posts.number == p %}
+         <a class="btn btn-info mb-4" href="?page={{ p }}{%if request.GET.q %}&q={{request.GET.q}}{%endif%}">{{ p }}</a>
+        {% elif p > posts.number|add:'-3' and p < posts.number|add:'3' %}
+         <a class="btn btn-outline-info mb-4" href="?page={{ p }}{%if request.GET.q %}&q={{request.GET.q}}{%endif%}">{{ p }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if posts.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ posts.next_page_number }}{%if request.GET.q %}&q={{request.GET.q}}{%endif%}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ posts.paginator.num_pages }}{%if request.GET.q %}&q={{request.GET.q}}{%endif%}">Last</a>
+      {% endif %}
+
+
+{% endblock content %}

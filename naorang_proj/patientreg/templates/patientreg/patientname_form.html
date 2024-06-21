@@ -1,0 +1,35 @@
+{% extends "appointment/base.html" %}
+{%load static%}
+
+{%block javascript%}
+    <script src="{%static 'patientdata/js/patientdataedit.js'%}"></script>
+{%endblock javascript%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-md-8">
+    <div class="content-section">
+        <div class="media">
+          {%if object.image%}
+            <img class="rounded-circle account-img" src="{{ object.image.url }}">
+           {%endif%}
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+               {%if object.image%}
+                  <legend class="border-bottom mb-4">Patient Update</legend>
+               {%else%}
+                  <legend class="border-bottom mb-4">Patient Registration</legend>
+               {%endif%}
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+

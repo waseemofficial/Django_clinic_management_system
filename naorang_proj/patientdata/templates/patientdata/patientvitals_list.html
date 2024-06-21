@@ -1,0 +1,49 @@
+{%extends 'appointment/base.html'%}
+{%load static%}
+
+{%block javascript%}
+    <script src="{%static 'patientdata/js/patientdatacreate.js'%}"></script>
+{%endblock javascript%}
+{%block content%}
+<h1 class="page-header" >Patient Vitals</h1>
+
+
+<p>
+
+</p>
+
+<table class="table" id="patientvitals-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Blood Pressure</th>
+        <th>Respiratory Rate</th>
+        <th>Weight</th>
+        <th>Temprature</th>
+        <th>Mizaj-1</th>
+        <th>Mizaj-2</th>
+        <th>Date Visited</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      {% include 'patientdata/partial_patientvitals_list.html' %}
+
+
+
+    </tbody>
+
+
+</table>
+
+<div class="modal fade" id="modal-patientvitals" >
+    <div class="modal-dialog" >
+        <div class="modal-content">
+
+        </div>
+
+    </div>
+</div>
+{%endblock%}

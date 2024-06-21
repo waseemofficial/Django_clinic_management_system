@@ -1,0 +1,28 @@
+{% extends "appointment/base.html" %}
+{%load static%}
+
+{%block javascript%}
+    <script src="{%static 'appointment/js/appointmentstatus.js'%}"></script>
+{%endblock javascript%}
+
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+
+                <legend class="border-bottom mb-4">Appointment</legend>
+
+                {{form.date}}
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">appointment new</button>
+            </div>
+        </form>
+
+    </div>
+
+
+{% endblock content %}

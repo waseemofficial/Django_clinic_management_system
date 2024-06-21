@@ -1,0 +1,44 @@
+{% extends "appointment/base.html" %}
+
+{%block content%}
+<div class="col-md-8">
+    {%for post in posts%}
+      <div class="card-body" >
+        <article class="media content-section">
+          <!--<img class="rounded-circle article-img " src="{{ post.staff.profile.image.url }}">-->
+          <div class="media-body">
+            <div class="article-metadata">posted by<meta name="keyword" content=" {{object.presenting_complaints}}"> <!-- try exp -->
+              <a class="mr-2" href="#"> <b>{{ object.history_of_presenting_complaints }}</b></a>
+
+              <small class="text-muted">on {{ object.department }}</small> <!--date_posted??-->
+            </div>
+            <h5>Patient try :<a class="article-title" href="#"> {{ object.history_of_a.patientname.menarche }} </a></h5>
+            <h5>Patient Name :<a class="article-title" href="#"> {{ object.history_of_a.name }} </a></h5>
+            <h5>Patient history :<a class="article-title" href="#"> {{ object.past_historys }} </a></h5>
+            <h6>Appointment time : {{object.past_history_note}} Date: {{object.drug_history}}</h6>
+            <h6>Dr. <a href="">{{object.drug_history_note}}</a></h6>
+            <h6>Dr. <a href="">{{object.treatment_history_note}}</a></h6>
+            <h6>Dr. <a href="">{{object.surgeries}}</a></h6>
+            <h6>Dr. <a href="">{{object.personal_history_sleep}}</a></h6>
+            <h6>Dr. <a href="">{{object.personal_history_appetite}}</a></h6>
+            <h6>Dr. <a href="">{{object.personal_history_diet}}</a></h6>
+            <h6>Dr. <a href="">{{object.personal_history_bowel_bladder_habits}}</a></h6>
+            <h6>Dr. <a href="">{{object.addictions}}</a></h6>
+            <h6>Dr. <a href="">{{object.occupational_history}}</a></h6>
+            <h6>Dr. <a href="">{{object.family_history}}</a></h6>
+
+
+
+            <p class="article-content">{{ object.drug_allergies }}</p>
+            <h6>Status:{{ object.treatment_history }}</h6>
+            <button>Edit</button>
+
+          </div>
+        </article>
+      </div>
+    {%endfor%}
+  </div>/
+{%endblock content%}
+
+
+

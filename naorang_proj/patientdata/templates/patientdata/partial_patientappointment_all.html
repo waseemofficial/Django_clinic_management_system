@@ -1,0 +1,38 @@
+{%for post in patientname.appointment_set.all %}
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12" >
+            <h3>appointment</h3>
+
+
+              <article class="media content-section">
+                  <div class="row flex-row flex-nowrap">
+                  <div class="media-body">
+                    <div class="article-metadata">
+                      <h5>posted by<a class="mr-2" href="#"> <b> {{post.PatientVitals.id}}</b></a></h5>
+                      <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+                      <h4>patient_name<a class="mr-2" href=""> <b>{{post.patient_name}}</b></a></h4>
+                      <h4>start<a class="mr-2" href=""> <b>{{post.start}}</b></a></h4>
+                      <h4>title<a class="mr-2" href=""> <b>{{post.title}}</b></a></h4>
+                      <h4>content<a class="mr-2" href=""> <b>{{post.content}}</b></a></h4>
+                      <h4>status<a class="mr-2" href=""> <b>{{post.status}}</b></a></h4>
+                      <h4>contact no<a class="mr-2" href=""> <b>{{post.contact_no}}</b></a></h4>
+                      <h4>date posted<a class="mr-2" href=""> <b>{{post.date_posted}}</b></a></h4>
+                      <h4>reshadule<a class="mr-2" href=""> <b>{{post.reshadule}}</b></a></h4>
+                      {%for dr in post.dr_name.all%}
+                      <h4>Dr. <a href="">{{dr}}</a></h4>
+                      {%endfor%}
+
+
+                    </div> <!--date_posted??-->
+                      {% if user.is_dr %}
+                        <div>
+                          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Update</a>
+                          <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
+                          <small class="text-muted">status: </small>
+                        </div>
+                      {% endif %}
+                    </div>
+                    </div>
+                </article>
+              </div>
+          {%endfor%}

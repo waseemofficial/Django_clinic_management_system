@@ -1,0 +1,33 @@
+{% extends "appointment/base.html" %}
+{% block content %}
+<div class="col-md-6">
+  <article class="media content-section">
+
+    <div class="media-body">
+      <div class="article-metadata">
+        <h5>posted by<a class="mr-2" href="#"> <b> {{object.staff}}</b></a></h5>
+        <meta name="keyword" content="{{object.title|capfirst}} "> <!-- try exp -->
+
+        <h3>Patient Name<a class="mr-2" href="#"> <b>{{object.appointment_for}}</b></a></h3>
+        <small class="text-muted">on {{ object.date_posdted }}</small>
+        <div>
+          <small class="text-muted">from {{ object.start }} to {{ object.start }}</small>
+
+        </div> <!--date_posted??-->
+        {% if object.staff == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Update</a>
+            <a class="btn btn-secondary btn-sm mb-1 mb-2" href="#">reshadule</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
+            <small class="text-muted">status:{{ object.status|capfirst }} </small>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.title|capfirst }}</h2>
+      <h3>{{ object.contact_no }}</h3>
+      <p class="article-content">{{ object.content|capfirst|linebreaks }}</p>
+      <h2>Dr.{{ object.dr_name|capfirst }}</h2>
+    </div>
+  </article>
+</div>
+{% endblock content %}

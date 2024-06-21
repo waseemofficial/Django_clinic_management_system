@@ -1,0 +1,34 @@
+{% extends "patientdata/patienthistory.html" %}
+
+
+{%block content%}
+
+
+      <div class="card-body" >
+        <article class="media content-section">
+          <!--<img class="rounded-circle article-img " src="{{ post.staff.profile.image.url }}">-->
+          <div class="media-body">
+            <div class="article-metadata">posted by<meta name="keyword" content=" {{object.menarche}}"> <!-- try exp -->
+              <a class="mr-2" href="#"> <b>{{ object.menopause }}</b></a>
+
+              <small class="text-muted">on {{ object.married_life }}</small> <!--date_posted??-->
+            </div>
+            <h5>Patient Name :<a class="article-title" href="#"> {{ object.last_menstrual_period }} </a></h5>
+            <h6>Appointment time : {{object.flow}} Date: {{object.regularity}}</h6>
+            <h6>Dr. <a href="">{{object.cycle}}</a></h6>
+            <h6>Dr. <a href="">{{object.dysmenorrhea}}</a></h6>
+            <h6>Dr. <a href="">{{object.clots}}</a></h6>
+            <h6>Dr. <a href="">{{object.leucorrhea}}</a></h6>
+
+
+
+            <p class="article-content">{{ object.drug_allergies }}</p>
+            <h6>Status:{{ object.treatment_history }}</h6>
+            <button>Edit</button>
+            <button>cancle</button>
+
+          </div>
+        </article>
+      </div>
+
+{%endblock content %}

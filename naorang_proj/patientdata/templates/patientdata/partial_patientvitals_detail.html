@@ -1,0 +1,36 @@
+{%for post in patientname.patientvitals_set.all %}
+<div class="col-12 col-sm-12 col-md-12 col-lg-12" >
+    <div class="card card-block"  >card
+        <h3>Vitals</h3>
+          <div class="card-body">
+            <h4>Patient Name<a class="mr-2" href=""> <b>{{object.pk}}</b></a></h4>
+            <article class="media content-section">
+                <div class="media-body">
+                  <div class="article-metadata">
+                    <h5>posted by<a class="mr-2" href="#"> <b> {{post.id}}</b></a></h5>
+                    <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+                    <h4>pulse<a class="mr-2" href=""> <b>{{post.pulse}}</b></a></h4>
+                    <h4>blood pressure<a class="mr-2" href=""> <b>{{post.blood_pressure}}</b></a></h4>
+                    <h4>respiratory rate<a class="mr-2" href=""> <b>{{post.respiratory_rate}}</b></a></h4>
+                    <h4>weight<a class="mr-2" href=""> <b>{{post.weight}}</b></a></h4>
+                    <h4>temperature<a class="mr-2" href=""> <b>{{post.temperature}}</b></a></h4>
+                    <h4>mizaj 1<a class="mr-2" href=""> <b>{{post.mizaj_1}}</b></a></h4>
+                    <h4>mizaj 2<a class="mr-2" href=""> <b>{{post.mizaj_2}}</b></a></h4>
+                    <h4>date vitals<a class="mr-2" href=""> <b>{{post.date_vitals}}</b></a></h4>
+                    <h4>Patient Name<a class="mr-2" href=""> <b>{{object.pk}}</b></a></h4>
+                    <h4>Patient Name<a class="mr-2" href=""> <b>{{post.pk}}</b></a></h4>
+                  </div> <!--date_posted??-->
+                    {% if user.is_dr %}
+                      <div>
+                        <button type="button" class="btn btn-warning btn-sm js-update-patientvitals" data-url="{% url 'patientvitals_update' post.pk  %}"><span class="glyphicon glyphicon-pencil"></span>Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm js-delete-patientvitals" data-url="{% url 'patientvitals_delete' post.pk %}"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                        <small class="text-muted">status: </small>
+                      </div>
+                    {% endif %}
+                </div>
+            </article>
+          </div>
+    </div>
+</div>
+{%endfor%}
+

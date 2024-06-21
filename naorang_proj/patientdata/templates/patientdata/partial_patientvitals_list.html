@@ -1,0 +1,21 @@
+{% for post in patientvitals %}
+        <tr>
+          <td>{{post.id}}</td>
+          <td>{{post.title_n}}</td>
+          <td>{{post.blood_pressure}}</td>
+          <td>{{post.respiratory_rate}}</td>
+          <td>{{post.weight}}</td>
+          <td>{{post.temperature}}</td>
+          <td>{{post.mizaj_1}}</td>
+          <td>{{post.mizaj_2}}</td>
+          <td>{{post.date_vitals}}</td>
+          <td><button type="button" class="btn btn-warning btn-sm js-update-patientvitals" data-url="{% url 'patientvitals_update' post.id  %}"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+            <button type="button" class="btn btn-danger btn-sm js-delete-book" data-url="{% url 'patientvitals_delete' post.id %}"> <span class="glyphicon glyphicon-trash"></span> Delete</button>
+          </td>
+
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center bg-warning">No book</td>
+        </tr>
+      {% endfor %}

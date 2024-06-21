@@ -1,0 +1,38 @@
+{% extends "appointment/base.html" %}
+
+{%block content%}
+    {%for post in posts%}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#" >{{post.patient_name}} Patient ID :- {{post.id}}</a>
+                    <small class="mr-9">{{post.dr_name}}</small>
+                </div>
+                <h2><a class="article-title" href="#">appointment sheduled on {{post.start}} at {{post.start}}</a></h2>
+                <h3>{{post.title}}</h3>
+                <h3>appoint made by: {{post.staff}} on {{post.date_posdted}}</h2>
+                <h3>contact no:{{post.contact_no}}</h3>
+
+                <p class="article-content">{{post.content}}</p>
+
+
+                    <select class="dropdown dropright">
+
+
+                        <option value="scheduled">Scheduled</option>
+
+                        <option value="waiting">Waiting</option>
+
+                        <option value="session">Session</option>
+
+                        <option value="done">Done</option>
+
+                    </select>
+                <button>{{post.reshadule}}</button>
+                <button>{{post.cancled}}</button>
+            </div>
+        </article>
+
+
+    {%endfor%}
+{%endblock content%}

@@ -1,0 +1,29 @@
+{%for post in patientname.patientadvice_set.all %}
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12" >
+
+
+              <article class="media content-section">
+                  <div class="row flex-row flex-nowrap">
+                  <div class="media-body">
+                    <div class="article-metadata">
+                      <h5>posted by<a class="mr-2" href="#"> <b> {{post.Patientadvice.id}}</b></a></h5>
+                      <meta name="keyword" content="{{post.title_n}} "> <!-- try exp -->
+
+                      <h4>patient_name<a class="mr-2" href=""> <b>{{post.advice}}</b></a></h4>
+
+
+
+
+                    </div> <!--date_posted??-->
+                      {% if user.is_dr %}
+                        <div>
+                          <a class="btn btn-secondary btn-sm mt-1 mb-1 js-update-patientadvice" data-url="{% url 'patientadvice_update' post.pk  %}">Update</a>
+                          <a class="btn btn-danger btn-sm mt-1 mb-1 js-delete-patientadvice" data-url="{% url 'patientadvice_delete' post.pk %}">Delete</a>
+                          <small class="text-muted">status: </small>
+                        </div>
+                      {% endif %}
+                    </div>
+                    </div>
+                </article>
+              </div>
+          {%endfor%}
